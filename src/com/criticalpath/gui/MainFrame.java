@@ -185,7 +185,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int currSize = listOfLinks.size();
         currSize++;
-        Links row = new Links(currSize, 0, 0, "T" + currSize, 0, 0);
+        Links row = new Links(currSize, 0, 0, "T" + currSize, 0, "-");
 
         linksTableModel = (LinksTableModel) linksTable.getModel();
         linksTableModel.insertRow(row);

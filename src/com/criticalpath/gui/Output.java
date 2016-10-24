@@ -13,9 +13,11 @@ import com.mxgraph.layout.mxCircleLayout;
 import com.mxgraph.layout.mxIGraphLayout;
 import com.mxgraph.swing.mxGraphComponent;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.List;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.table.TableCellRenderer;
 import org.jgrapht.ListenableGraph;
 import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.DefaultWeightedEdge;
@@ -131,10 +133,27 @@ public class Output extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         nodesList = Controller.computeET(nodesList, listOfLinks);
         nodesList = Controller.computeLT(nodesList, listOfLinks);
+        nodesList = Controller.assignCRT(nodesList, listOfLinks);
 
         outputTableModel = new NodesTableModel(nodesList);
-        nodesTable = new JTable(outputTableModel);
-//        nodesTable.setDe
+        nodesTable = new JTable(outputTableModel) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int col) {
+                Component comp = super.prepareRenderer(renderer, row, col);
+                int LT = (Integer) getModel().getValueAt(row, 2);
+                String crtStr = (String) getModel().getValueAt(row, 3);
+                if (crtStr != null && !crtStr.equalsIgnoreCase("-")) {
+                    int CRT = Integer.parseInt(crtStr);
+                    if (LT <= CRT) {
+                        comp.setBackground(Color.green);
+                    } else {
+                        comp.setBackground(Color.red);
+                    }
+                }
+                return comp;
+            }
+        };
+
         tablePanel.add(new JScrollPane(nodesTable));
         tablePanel.repaint();
         tablePanel.revalidate();
@@ -202,12 +221,12 @@ public class Output extends javax.swing.JFrame {
         ListenableDirectedWeightedGraph<String, Output.MyEdge> g
                 = new ListenableDirectedWeightedGraph<String, Output.MyEdge>(Output.MyEdge.class);
 
-        for (int i = 1; i <= 5; i++) {
-            g.addVertex("Node " + i);
+        for (int i = 1; i <= nodesList.size(); i++) {
+            g.addVertex("Task " + i);
         }
         Output.MyEdge e;
         for (Links link : listOfLinks) {
-            e = g.addEdge("Node " + link.getFromNode(), "Node " + link.getToNode());
+            e = g.addEdge("Task " + link.getFromNode(), "Task " + link.getToNode());
             g.setEdgeWeight(e, link.getTime());
         }
         return g;

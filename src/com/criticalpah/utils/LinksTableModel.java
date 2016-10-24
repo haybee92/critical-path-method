@@ -20,7 +20,7 @@ public class LinksTableModel extends AbstractTableModel {
         "Id", "From Node", "To Node", "Symbol", "Time", "CRT"
     };
     private final Class[] columnClass = new Class[]{
-        Integer.class, Integer.class, Integer.class, String.class, Integer.class, Integer.class
+        Integer.class, Integer.class, Integer.class, String.class, Integer.class, String.class
     };
 
     public LinksTableModel(List<Links> listOfLinks) {
@@ -94,7 +94,7 @@ public class LinksTableModel extends AbstractTableModel {
                 row.setTime((Integer) aValue);
                 break;
             case 5:
-                row.setCRT((Integer) aValue);
+                row.setCRT((String) aValue);
                 break;
             default:
                 break;

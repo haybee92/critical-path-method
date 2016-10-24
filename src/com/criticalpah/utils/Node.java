@@ -16,7 +16,7 @@ public class Node {
     private int id;
     private int ET;
     private int LT;
-    private int CT;
+    private String CT;
 
     public Node(int id) {
         this.id = id;
@@ -46,11 +46,11 @@ public class Node {
         this.LT = LT;
     }
 
-    public void setCT(int CT) {
+    public void setCT(String CT) {
         this.CT = CT;
     }
 
-    public int getCT() {
+    public String getCT() {
         return CT;
     }
 
@@ -68,5 +68,10 @@ public class Node {
             return n1.getId() - n2.getId();
         }
     };
+
+    @Override
+    public String toString() {
+        return "[" + this.id + "," + this.ET + "," + this.LT + "," + this.CT + "]";
+    }
 
 }

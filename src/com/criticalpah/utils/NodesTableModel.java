@@ -5,13 +5,8 @@
  */
 package com.criticalpah.utils;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.util.Arrays;
 import java.util.List;
-import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
@@ -19,27 +14,13 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class NodesTableModel extends AbstractTableModel {
 
-    List<Color> rowColours = Arrays.asList(
-            Color.RED,
-            Color.GREEN
-    );
-
-    public void setRowColour(int row, Color c) {
-        rowColours.set(row, c);
-        fireTableRowsUpdated(row, row);
-    }
-
-    public Color getRowColour(int row) {
-        return rowColours.get(row);
-    }
-
     private final List<Node> nodesList;
 
     private final String[] columnNames = new String[]{
-        "Node", "ET", "LT"
+        "Tast", "ET", "LT", "CT"
     };
     private final Class[] columnClass = new Class[]{
-        String.class, Integer.class, Integer.class
+        String.class, Integer.class, Integer.class, String.class
     };
 
     public NodesTableModel(List<Node> nodesList) {
@@ -76,40 +57,12 @@ public class NodesTableModel extends AbstractTableModel {
                 return row.getET();
             case 2:
                 return row.getLT();
+            case 3:
+                return row.getCT();
 
             default:
                 break;
         }
         return null;
-    }
-}
-
-class BoardTableCellRenderer extends DefaultTableCellRenderer {
-
-    private static final long serialVersionUID = 1L;
-
-    @Override
-    public Component getTableCellRendererComponent(JTable table, Object value,
-            boolean isSelected, boolean hasFocus, int row, int col) {
-
-        Component c = super.getTableCellRendererComponent(table, value,
-                isSelected, hasFocus, row, col);
-        
-        
-        Object valueAt = table.getModel().getValueAt(row, col);
-        String s = "";
-        if (valueAt != null) {
-            s = valueAt.toString();
-        }
-
-        if (s.equalsIgnoreCase("yellow")) {
-            c.setForeground(Color.YELLOW);
-            c.setBackground(Color.gray);
-        } else {
-            c.setForeground(Color.black);
-            c.setBackground(Color.WHITE);
-        }
-
-        return c;
     }
 }

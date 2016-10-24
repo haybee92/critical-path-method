@@ -24,6 +24,7 @@ public class Controller {
             }
         }
 
+        System.out.println("ET>>> " + nodesList);
         return nodesList;
     }
 
@@ -60,6 +61,7 @@ public class Controller {
         }
 
         Collections.sort(nodesList, Node.ascComp);
+        System.out.println("LT>>> " + nodesList);
         return nodesList;
     }
 
@@ -93,5 +95,17 @@ public class Controller {
         }
 
         return null;
+    }
+
+    public static List<Node> assignCRT(List<Node> nodesList, List<Links> listOfLinks) {
+        for (Links links : listOfLinks) {
+            if (!links.getCRT().equalsIgnoreCase("-")) {
+                Node node = getNode(links.getToNode(), nodesList);
+                node.setCT(links.getCRT());
+            }
+        }
+
+        System.out.println("CRT>>>" + nodesList);
+        return nodesList;
     }
 }

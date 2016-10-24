@@ -5,8 +5,6 @@
  */
 package com.criticalpah.utils;
 
-import java.util.List;
-
 /**
  *
  * @author Abiola.Adebanjo
@@ -18,9 +16,9 @@ public class Links {
     private int toNode;
     private String symbol;
     private int time;
-    private int CRT;
+    private String CRT;
 
-    public Links(int id, int fromNode, int toNode, String symbol, int time, int CRT) {
+    public Links(int id, int fromNode, int toNode, String symbol, int time, String CRT) {
         this.id = id;
         this.fromNode = fromNode;
         this.toNode = toNode;
@@ -69,11 +67,11 @@ public class Links {
         this.time = time;
     }
 
-    public int getCRT() {
+    public String getCRT() {
         return CRT;
     }
 
-    public void setCRT(int CRT) {
+    public void setCRT(String CRT) {
         this.CRT = CRT;
     }
 }
